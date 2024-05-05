@@ -5,6 +5,7 @@ import axios from 'axios';
 const App = () => {
   // State to hold the input question
   const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("")
 
   // Function to update question state with input value
   const getQuestion = (e) => {
@@ -13,7 +14,7 @@ const App = () => {
 
   // Function to generate answer
   const generateAnswer = async () => {
-    console.log("Loading.....")
+    setAnswer("Loading.....")
     try {
       const response = await axios.post(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyACWUSub5eq9eDCJiMUimzadJieKaquTl0",
@@ -23,7 +24,7 @@ const App = () => {
           }]
         }
       )
-      console.log(response);
+      setAnswer(response["data"]["candidates"][0]["content"]["parts"][0]["text"]);
       
     } catch (error) {
       console.error("data featching error", error)
@@ -32,18 +33,34 @@ const App = () => {
   }
 
   return (
+    <>
+    <nav>
+      <div>
+        {/* navbar-logo */}
+        <div>
+          <h1>chat-AI</h1>
+        </div>
+        <div></div>
+      </div>
+    </nav>
+
     <div>
-      <h1>Chat Ai</h1>
-      {/* Input field for the question */}
-      <input 
-        type="text" 
-        value={question} 
-        onChange={getQuestion} 
-        placeholder="Enter your question"
-      />
-      {/* Button to generate answer */}
-      <button onClick={generateAnswer}>Generate</button>
+      {/* input-field */}
+      <div>
+        <input type="text" value={question} onChange={getQuestion} placeholder='Enter your question' />
+      </div>
+      {/* input-button */}
+      <div>
+        <button onClick={generateAnswer}>Generate Answer</button>
+      </div>
+
+      {/* answer-section */}
+
+      <div>
+        <pre>{answer}</pre>
+      </div>
     </div>
+    </>
   );
 }
 
