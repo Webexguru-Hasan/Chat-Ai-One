@@ -1,0 +1,105 @@
+:root{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    
+
+}
+
+.navbar{
+    background-color: #ACC8E5;
+    width: 100%;
+    display: flex;
+}
+
+.nav-body{
+    width: 70%;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #112A46;
+}
+
+.chat-body{
+    width: 70%;
+    margin: auto;
+    display: flex;
+    margin-top: 50px;
+    
+}
+
+.chat-field{
+    width: 929px;
+    height: 53px;
+    padding-left: 10px;
+    position: relative;
+    border: 1px solid #ACC8E5;
+    outline: none;
+    font-size: 16px;
+    color: #112A46;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+::placeholder{
+    font-size: 16px;
+    
+}
+
+.chat-btn{
+    padding: 18px 20px;
+    background-color: #ACC8E5;
+    position: absolute;
+    top: 133px;
+    right: 205px;
+    border: none;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    cursor: pointer;
+}
+
+.answer-field{
+    width: 70%;
+    margin: auto;
+    background-color: #ACC8E5;
+    overflow: auto;
+    margin-top: 20px;
+    
+    
+    
+    
+}
+
+pre{
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #112A46;
+    padding: 20px;
+    line-height: 28px;
+    text-align: justify;
+    margin: 0; /* Remove default margin */
+    word-wrap: break-word; /* Ensure text wraps within the answer-field */
+    
+    
+    
+    
+}
+
+.loading{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

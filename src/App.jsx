@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import './App.css';
-import axios from 'axios';
+import React, { useState } from 'react'
+import './styles.css'
+import axios from 'axios'
 
 const App = () => {
-  // State to hold the input question
-  const [question, setQuestion] = useState("");
+
+  const [question, setQuestion] = useState("")
   const [answer, setAnswer] = useState("")
+  const [loading, setIsLoading] = useState(false)
 
-  // Function to update question state with input value
-  const getQuestion = (e) => {
-    setQuestion(e.target.value);
-  }
+  const generateData = async () => {
 
-  // Function to generate answer
-  const generateAnswer = async () => {
-    setAnswer("Loading.....")
+    setIsLoading(true)
+
     try {
       const response = await axios.post(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyACWUSub5eq9eDCJiMUimzadJieKaquTl0",
@@ -24,44 +21,55 @@ const App = () => {
           }]
         }
       )
-      setAnswer(response["data"]["candidates"][0]["content"]["parts"][0]["text"]);
-      
+
+      setAnswer(response["data"]["candidates"][0]["content"]["parts"][0]["text"])
     } catch (error) {
-      console.error("data featching error", error)
-      
+      console.error("fetch data error", error)
+    } finally{
+      setIsLoading(false)
+    }
+
+    
+  }
+
+  const getAnswer = (e) =>{
+    setQuestion(e.target.value)
+
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      generateData();
     }
   }
 
+  
   return (
     <>
-    <nav>
-      <div>
-        {/* navbar-logo */}
-        <div>
-          <h1>chat-AI</h1>
-        </div>
-        <div></div>
-      </div>
-    </nav>
-
-    <div>
-      {/* input-field */}
-      <div>
-        <input type="text" value={question} onChange={getQuestion} placeholder='Enter your question' />
-      </div>
-      {/* input-button */}
-      <div>
-        <button onClick={generateAnswer}>Generate Answer</button>
-      </div>
-
-      {/* answer-section */}
-
-      <div>
-        <pre>{answer}</pre>
+    <div className='navbar'>
+      <div className='nav-body'>
+        <h1>chat AI</h1>
       </div>
     </div>
+
+    <div className='chat-body'>
+      {/* input-field-here */}
+      <div>
+        <input className='chat-field' type="text" placeholder='Enter your question' value={question} onChange={getAnswer} onKeyPress={handleKeyPress} />
+        <button onClick={generateData} className='chat-btn'>generate answer</button>
+      </div>
+      {/* input-button-here */}
+      {/* <div>
+        
+      </div> */}
+      {/* answer-showing-field */}
+
+    </div>
+    {loading ? <div className='loading'><h1>Loading....</h1></div> : (!answer ? null : <div className='answer-field'>
+        <pre>{answer}</pre>
+      </div>)}
     </>
-  );
+  )
 }
 
-export default App;
+export default App
